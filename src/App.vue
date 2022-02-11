@@ -1,9 +1,9 @@
 <template>
  <div id="app">
-
+   <exercise-app></exercise-app>
  </div>
 </template>
-./components/ExerciseApp.vue
+
 <script>
 import ExerciseApp from './components/ExerciseApp.vue'
 
