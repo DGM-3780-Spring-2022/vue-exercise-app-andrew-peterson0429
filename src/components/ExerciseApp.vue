@@ -1,15 +1,18 @@
 <template>
   <div class="container">
-    <h2 class="text-center mt-5">Vue Exercise Tracking App</h2>
+    <h2 class="text-center mt-5 pb-2 vueBackground">Vue Exercise Tracking App</h2>
     
    <!--  Input -->
-   <div class="d-flex mt-5">
+   <div class="mt-5">
+      <input v-model="date" type="date" class="rounded-2">
+    </div>
+   
+   <div class="d-flex mt-2">
       <input v-model="task" type="text" placeholder="Enter Exercise" class="form-control">
       <input v-model="rep" type="text" placeholder="Enter Reps" class="form-control">
-      <input v-model="distance" type="text" placeholder="Enter Distance" class="form-control">
+      <input v-model="distance" type="text" placeholder="Enter Distance mi" class="form-control">
       <input v-model="time" type="text" placeholder="Enter Time" class="form-control">
-      <input type="date" value="2017-06-01">
-      <button @click="submitTask()" class="btn btn-warning rounded-0">Submit</button>
+      <button @click="submitTask()" class="btn btn-success rounded-2 vueBackground">Submit</button>
    </div>
 
       <!-- Table -->
@@ -20,6 +23,7 @@
           <th scope="col">Reps</th>
           <th scope="col">Distance</th>
           <th scope="col">Time</th>
+          <th scope="col">Date</th>
           <th scope="col">Status</th>
           <th scope="col" class="text-center"></th>
           <th scope="col" class="text-center"></th>
@@ -34,10 +38,13 @@
               {{task.rep}}
             </td>
             <td>
-              {{task.distance}}
+              {{task.distance}} mi
             </td>
             <td>
               {{task.time}}
+            </td>
+            <td>
+              {{task.date}}
             </td>
           <td style="width: 120px">
             <span @click="changeStatus(index)" class="pointer" 
@@ -61,7 +68,9 @@
       </tbody>
     </table>
    
-    <table class="table mt-5">
+  <h3 class="mt-5">Workout Stats</h3>
+
+    <table class="table mt-2">
   <thead>
     <tr>
       <th scope="col">Total Workouts</th>
@@ -74,12 +83,18 @@
     <tr>
       <th scope="row">{{totalWorkouts}}</th>
       <td>{{totalReps}}</td>
-      <td>{{totalDistance}}</td>
+      <td>{{totalDistance}} mi</td>
       <td>{{totalTime}}</td>
     </tr>
     
   </tbody>
 </table>
+
+  <footer class="vueBackgroundDark footer">
+    <div>
+      <p>Vue Exercise Tracking App for DGM 3780 by Andrew Peterson</p>
+    </div>
+  </footer>
 
   </div>
 </template>
@@ -96,6 +111,7 @@ export default {
       editedDistance: null,
       time: '',
       editedTime: null,
+      date: '',
       availableStatuses: ['To-do', 'In-progress', 'Finished'],
 
       tasks: [
@@ -133,6 +149,7 @@ export default {
           rep: this.rep,
           time: this.time,
           distance: this.distance,
+          date: this.date,
           status: 'To-do'
         });
       } else {
@@ -140,6 +157,7 @@ export default {
         this.tasks[this.editedTask].rep = this.rep;
         this.tasks[this.editedTask].distance = this.distance;
         this.tasks[this.editedTask].time = this.time;
+        this.tasks[this.editedTask].date = this.date;
         this.editedTask = null;
       }
 
@@ -147,6 +165,7 @@ export default {
       this.rep = '';
       this.distance = '';
       this.time = '';
+      this.date = '';
       this.totals();
     },
 
@@ -188,8 +207,6 @@ export default {
 
   },
 
-  
-
 };
 
 </script>
@@ -203,5 +220,28 @@ export default {
   .finished {
     text-decoration: line-through;
   }
+
+ .vueDarkColor {
+   color: #35495e;
+ }
   
+.vueBackground {
+  background-color: #42b883;
+}
+
+.vueBackgroundDark {
+  background-color: #35495e;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+  height: 4rem;
+  width: auto;
+  color: #fff;
+  text-align: center;
+}
+
 </style>
